@@ -3,9 +3,9 @@ import { GET_ALL, POST } from "./types";
 
 let api = "/api/";
 
-if (window.location.hostname.indexOf("localhost") >= 0) {
-  api = "http://localhost:5000/api/";
-}
+// if (window.location.hostname.indexOf("localhost") >= 0) {
+//   api = "http://localhost:5000/api/";
+// }
 
 export const getAll = () => async (dispatch) => {
   const res = await axios.get(`${api}main`);
