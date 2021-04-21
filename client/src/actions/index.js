@@ -1,10 +1,14 @@
 import axios from "axios";
 import { GET_ALL, POST } from "./types";
 
-const API_URL = "http://localhost:5000/api";
+let api = "/api/";
+
+if (window.location.hostname.indexOf("localhost") >= 0) {
+  api = "http://localhost:5000/api/";
+}
 
 export const getAll = () => async (dispatch) => {
-  const res = await axios.get(`${API_URL}/main`);
+  const res = await axios.get(`${api}main`);
 
   await dispatch({
     type: GET_ALL,
@@ -20,7 +24,7 @@ export const post = ({ id, content }) => async (dispatch) => {
   };
   const body = JSON.stringify({ id, content });
   try {
-    const res = await axios.post("/api/post", body, config);
+    const res = await axios.post(`${api}post`, body, config);
     const payload = res.data;
     dispatch({
       type: POST,
