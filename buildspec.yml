@@ -1,0 +1,15 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      # Install backend dependencies
+      - npm install
+
+      # Install frontend dependencies
+      - cd client
+      - npm install
+      - cd ../
+
+      # Upgrades AWS CLI to the latest version
+      - pip install --upgrade awscli
