@@ -8,7 +8,7 @@ phases:
 
       # Install frontend dependencies
       - cd client
-      - npm install
+      - npm run build
       - cd ../
 
       # Upgrades AWS CLI to the latest version
