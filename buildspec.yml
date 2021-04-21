@@ -8,16 +8,3 @@ phases:
   build:
     commands:
       - cd client && npm run build && cd ..
-  post_build:
-    commands:
-      - mv ./client/build ./build
-artifacts:
-  secondary-artifacts:
-    client:
-      files:
-        - "**/*"
-      base-directory: build
-    server:
-      files:
-        - "**/*"
-      base-directory: server
