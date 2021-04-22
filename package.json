@@ -7,8 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "start": "node ./server/server.js",
-    "server": "nodemon ./server/server.js --ignore './client/'",
+    "start": "node server.js",
+    "server": "nodemon server.js --ignore './client/'",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

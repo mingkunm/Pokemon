@@ -14,7 +14,7 @@ function App({ getAll }) {
 
   return (
     <div>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <Switch>
           <Route exact path="/" component={Home} />
         </Switch>

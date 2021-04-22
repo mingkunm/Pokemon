@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
 
-const main = require("./routes/example");
+const main = require("./server/routes/example");
 // const connectMongoDB = require("./db/mongodb");
 
 const app = express();
@@ -11,17 +11,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// if (process.env.NODE_ENV === "production") {
-app.use(express.static(path.join(__dirname, "..", "client", "build")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-});
-
-//   app.get("/product", (req, res) => {
-//     res.send("Production worked!");
-//   });
-// }
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+  });
+}
 
 app.get("/test", (req, res) => {
   res.send("this is test!");
