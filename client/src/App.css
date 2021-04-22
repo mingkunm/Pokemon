@@ -36,7 +36,7 @@ body {
 }
 
 .trainer > h4 {
-  padding-top: 20px;
+  padding-top: 30px;
 }
 
 .pokemons {
@@ -44,9 +44,21 @@ body {
 }
 
 .pokemon {
+  padding: 20px 0;
   border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
 }
 
 .pokemon:last-child {
   border-bottom: none;
+}
+
+.avatar-container {
+  margin-right: 40px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
 }
