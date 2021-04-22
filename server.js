@@ -5,7 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
-const main = require("./server/routes/example");
+const main = require("./server/routes/pokemon");
 
 // Body Parser Middleware
 app.use(express.json());

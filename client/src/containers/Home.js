@@ -7,7 +7,7 @@ function Home() {
   return (
     <div>
       <h2>Home</h2>
-      <h3>{initialData.payload}</h3>
+      <h3>{JSON.stringify(initialData.payload)}</h3>
     </div>
   );
 }
