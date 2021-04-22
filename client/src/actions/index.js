@@ -26,22 +26,3 @@ export const getAll = () => async (dispatch) => {
     console.log(err);
   }
 };
-
-// export const post = ({ id, content }) => async (dispatch) => {
-//   const config = {
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   };
-//   const body = JSON.stringify({ id, content });
-//   try {
-//     const res = await axios.post(`${api}post`, body, config);
-//     const payload = res.data;
-//     dispatch({
-//       type: POST,
-//       payload,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };

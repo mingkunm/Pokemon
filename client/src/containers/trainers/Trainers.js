@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 import Trainer from "./Trainer";
 import Popup from "../../components/Popup";
+import { addNewTrainer } from "../../actions/trainer";
 
-function Trainers() {
+function Trainers({ addNewTrainer }) {
   const trainer = useSelector((state) => state.trainer);
 
   const [popup, setPopup] = useState(false);
+  const [newTrainerName, setNewTrainerName] = useState("");
 
   return (
     <div className="trainers">
@@ -26,13 +29,18 @@ function Trainers() {
       </button>
 
       <Popup trigger={popup} setTrigger={setPopup} title="Add new trainer">
-        <input type="text" placeholder="Trainer name" />
+        <input
+          type="text"
+          placeholder="Trainer name"
+          onChange={(e) => setNewTrainerName(e.target.value)}
+        />
         <button
           className="btn-confirm"
           style={{
             width: "100%",
             marginTop: "30px",
           }}
+          onClick={() => addNewTrainer(newTrainerName)}
         >
           Confirm
         </button>
@@ -41,4 +49,4 @@ function Trainers() {
   );
 }
 
-export default Trainers;
+export default connect(null, { addNewTrainer })(Trainers);
