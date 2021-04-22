@@ -31,9 +31,16 @@ router.get("/", (req, res) => {
 
         connection.release();
 
-        const { main, pokemonArrange } = manageGetData(pokemons, trainers);
+        // const { traienr = main, pokemon = pokemonArrange } = manageGetData(
+        //   pokemons,
+        //   trainers
+        // );
 
-        res.json({ main, pokemonArrange });
+        const { main, pokemonArrange } = manageGetData(pokemons, trainers);
+        const trainer = main;
+        const pokemon = pokemonArrange;
+
+        res.json({ trainer, pokemon });
       });
     });
   });
@@ -50,22 +57,24 @@ const manageGetData = (_pokemon, _trainer) => {
 
     pokemon[ID] = {
       name: Name,
-      move: Move,
+      id: ID,
       type: Type,
+      move: Move,
     };
 
     pokemonMap[ID] = Name;
-    pokemonArrange[Name] = false;
   });
 
-  _trainer.forEach((item) => {
-    main[item.Name] = {};
-    main[item.Name].pokemon = {};
+  _trainer.forEach((trainer) => {
+    trainerName = trainer.Name;
+    main[trainerName] = {};
+    main[trainerName].name = trainerName;
+    main[trainerName].pokemon = [];
 
-    item.Pokemon_owned.split(",").forEach((id) => {
-      main[item.Name].pokemon[id] = pokemon[id];
+    trainer.Pokemon_owned.split(",").forEach((id) => {
+      main[trainerName].pokemon.push(pokemon[id]);
 
-      pokemonArrange[pokemonMap[id]] = true;
+      pokemonArrange[pokemonMap[id]] = trainerName;
     });
   });
 
