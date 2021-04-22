@@ -1,30 +1,20 @@
+// Imports
 const express = require("express");
-const cors = require("cors");
+const app = express();
 const path = require("path");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const main = require("./server/routes/example");
-// const connectMongoDB = require("./db/mongodb");
 
-const app = express();
-
+// Body Parser Middleware
 app.use(express.json());
-app.use(cors());
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "..", "client", "build")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-  });
-}
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "client/build")));
 
 app.get("/test", (req, res) => {
   res.send("this is test!");
 });
-
-// connectMongoDB();
-
 app.use("/api/main", main);
 
 const PORT = process.env.PORT || 5000;
