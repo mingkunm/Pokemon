@@ -3,6 +3,9 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db/sql");
 
+// @route      Get /api
+// @desc       Get all pokemons and trainers
+// @access     Public
 router.get("/", (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) {

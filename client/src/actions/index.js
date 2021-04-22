@@ -8,7 +8,7 @@ let api = "/api/";
 // }
 
 export const getAll = () => async (dispatch) => {
-  const res = await axios.get(`${api}main`);
+  const res = await axios.get(`${api}`);
 
   await dispatch({
     type: GET_ALL,

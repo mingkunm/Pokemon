@@ -5,7 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
-const main = require("./server/routes/pokemon");
+const main = require("./server/routes/main");
 
 // Body Parser Middleware
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "client/build")));
 app.get("/test", (req, res) => {
   res.send("this is test!");
 });
-app.use("/api/main", main);
+app.use("/api/", main);
 
 const PORT = process.env.PORT || 5000;
 
