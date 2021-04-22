@@ -4,8 +4,8 @@ import Pokemons from "../pokemons/Pokemons";
 
 function Trainer({ name, pokemons }) {
   return (
-    <div>
-      <h4>{JSON.stringify(name)}</h4>
+    <div className="trainer">
+      <h4>{name}</h4>
       <Pokemons pokemons={pokemons} />
     </div>
   );

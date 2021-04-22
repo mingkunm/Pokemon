@@ -1,0 +1,52 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Trainers list */
+.trainers {
+  padding: 20px 40px;
+  border: 1px solid gray;
+}
+
+.trainer {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+.trainer:last-child {
+  border-bottom: none;
+}
+
+.trainer > h4 {
+  padding-top: 20px;
+}
+
+.pokemons {
+  padding: 0 60px;
+}
+
+.pokemon {
+  border-bottom: 1px solid lightgray;
+}
+
+.pokemon:last-child {
+  border-bottom: none;
+}

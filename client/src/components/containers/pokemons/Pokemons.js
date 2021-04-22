@@ -1,17 +1,13 @@
 import React from "react";
 
+import Pokemon from "./Pokemon";
+
 function Pokemons({ pokemons }) {
   return (
-    <div>
-      <div>
-        {pokemons.map((pokemon) => (
-          <div>
-            <h5>name: {pokemon.name}</h5>
-            <h5>type: {pokemon.type}</h5>
-            <h5>move: {pokemon.move}</h5>
-          </div>
-        ))}
-      </div>
+    <div className="pokemons">
+      {pokemons.map((pokemon) => (
+        <Pokemon pokemon={pokemon} />
+      ))}
     </div>
   );
 }
