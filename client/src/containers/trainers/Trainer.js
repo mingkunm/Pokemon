@@ -8,7 +8,6 @@ import { deleteTrainer, addPokemonToTrainer } from "../../actions/trainer";
 
 function Trainer({ name, pokemons, deleteTrainer, addPokemonToTrainer }) {
   const pokemon = useSelector((state) => state.pokemon);
-  console.log(pokemon);
 
   const [deleteTrainerPopup, setDeleteTrainerPopup] = useState(false);
   const [addPokemonSelect, setAddPokemonSelect] = useState(null);

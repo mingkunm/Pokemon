@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, connect } from "react-redux";
 
 import Trainer from "./Trainer";
 import Popup from "../../components/Popup";
+import Search from "../../components/Search";
 import { addTrainer } from "../../actions/trainer";
 
 function Trainers({ addTrainer }) {
   const trainer = useSelector((state) => state.trainer);
-  console.log(trainer);
 
+  const [trainerList, setTrainerList] = useState(trainer);
   const [popup, setPopup] = useState(false);
   const [newTrainerName, setNewTrainerName] = useState("");
   const [newTrainerNameCheck, setNewTrainerNameCheck] = useState(false);
+
+  useEffect(() => {
+    setTrainerList(trainer);
+  }, [trainer]);
 
   const handleAddNewTrainer = () => {
     for (const [key] of Object.entries(trainer)) {
@@ -29,9 +34,14 @@ function Trainers({ addTrainer }) {
 
   return (
     <div className="trainers">
-      {Object.values(trainer).map(({ name, pokemon }, index) => (
-        <Trainer name={name} pokemons={pokemon} key={index} />
-      ))}
+      <Search trainer={trainer} setSearchResults={setTrainerList} />
+      {Object.keys(trainerList).length > 0 ? (
+        Object.values(trainerList).map(({ name, pokemon }, index) => (
+          <Trainer name={name} pokemons={pokemon} key={index} />
+        ))
+      ) : (
+        <div style={{ marginTop: "50px" }}>No Trainers :(</div>
+      )}
       <button
         style={{
           marginTop: "50px",

@@ -106,7 +106,11 @@ router.post("/addPokemon", (req, res) => {
         let newOwned;
         for (const t of trainers) {
           if (t.Name === trainer) {
-            newOwned = t.Pokemon_owned + `,${pokemonId}`;
+            if (t.Pokemon_owned) {
+              newOwned = t.Pokemon_owned + `,${pokemonId}`;
+            } else {
+              newOwned = `${pokemonId}`;
+            }
             break;
           }
         }

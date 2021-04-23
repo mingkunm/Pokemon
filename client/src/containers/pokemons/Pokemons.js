@@ -10,7 +10,7 @@ function Pokemons({ pokemons }) {
           <Pokemon pokemon={pokemon} key={index} />
         ))
       ) : (
-        <div style={{ marginTop: "50px" }}>{`No pokemon yet :)`}</div>
+        <div style={{ marginTop: "50px" }}>{`No pokemon yet :(`}</div>
       )}
     </div>
   );
