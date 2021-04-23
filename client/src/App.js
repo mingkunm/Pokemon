@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 import Home from "./pages/Home";
+import Battle from "./pages/Battle";
 import { getAll } from "./actions/index";
 
 function App({ getAll }) {
@@ -18,6 +19,7 @@ function App({ getAll }) {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/battle" component={Battle} />
         </Switch>
       </Router>
     </div>

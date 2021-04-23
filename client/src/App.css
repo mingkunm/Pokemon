@@ -93,6 +93,40 @@
   transform: scale(1.2);
 }
 
+/* Battle */
+.battle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.battle-field {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  height: 500px;
+  border: 1px solid gray;
+  margin-top: 50px;
+}
+
+.battle-avatar {
+  margin-top: 50px;
+  width: 200px;
+  height: 200px;
+}
+
+.battle-select {
+  width: 200px;
+}
+
+.battle-result {
+  font-size: 32px;
+  margin-top: 30px;
+}
+
 /* Button */
 .btn-confirm {
   background: green;
