@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
+import Select from "react-select";
 
 import Pokemons from "../pokemons/Pokemons";
 import Popup from "../../components/Popup";
-import { deleteTrainer } from "../../actions/trainer";
+import { deleteTrainer, addPokemonToTrainer } from "../../actions/trainer";
 
-function Trainer({ name, pokemons, deleteTrainer }) {
+function Trainer({ name, pokemons, deleteTrainer, addPokemonToTrainer }) {
+  const pokemon = useSelector((state) => state.pokemon);
+  console.log(pokemon);
+
   const [deleteTrainerPopup, setDeleteTrainerPopup] = useState(false);
+  const [addPokemonSelect, setAddPokemonSelect] = useState(null);
+  const [addPokemonPopup, setAddPokemonPopup] = useState(false);
 
   const handleDeleteTrainer = () => {
     if (pokemons.length > 0) {
@@ -15,6 +21,11 @@ function Trainer({ name, pokemons, deleteTrainer }) {
     }
 
     deleteTrainer(name);
+  };
+
+  const handleAddPokemon = () => {
+    addPokemonToTrainer(name, addPokemonSelect.value);
+    setAddPokemonPopup(false);
   };
 
   return (
@@ -28,7 +39,14 @@ function Trainer({ name, pokemons, deleteTrainer }) {
         }}
       >
         <h4>{name}</h4>
-        <button style={{ backgroundColor: "green" }} className="btn-trainer">
+        <button
+          style={{ backgroundColor: "green" }}
+          className="btn-trainer"
+          onClick={() => {
+            setAddPokemonSelect(null);
+            setAddPokemonPopup(true);
+          }}
+        >
           Add Pokemon
         </button>
         <button
@@ -49,8 +67,34 @@ function Trainer({ name, pokemons, deleteTrainer }) {
       >
         <h5>You must release all pokemons belong to current trainer first!</h5>
       </Popup>
+
+      {/* Add pokemon to trainer popup */}
+      <Popup
+        trigger={addPokemonPopup}
+        setTrigger={setAddPokemonPopup}
+        title={`Add a pokemon to ${name}`}
+      >
+        <Select
+          onChange={(selectedOption) => setAddPokemonSelect(selectedOption)}
+          value={addPokemonSelect}
+          options={pokemon.remaining.map((item) => ({
+            value: item.id,
+            label: item.name,
+          }))}
+        />
+        <button
+          className="btn-confirm"
+          style={{
+            width: "100%",
+            marginTop: "30px",
+          }}
+          onClick={() => handleAddPokemon()}
+        >
+          Add
+        </button>
+      </Popup>
     </div>
   );
 }
 
-export default connect(null, { deleteTrainer })(Trainer);
+export default connect(null, { deleteTrainer, addPokemonToTrainer })(Trainer);

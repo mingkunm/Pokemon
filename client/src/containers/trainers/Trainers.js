@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { connect } from "react-redux";
+import { useSelector, connect } from "react-redux";
 
 import Trainer from "./Trainer";
 import Popup from "../../components/Popup";
@@ -41,7 +40,7 @@ function Trainers({ addTrainer }) {
         }}
         onClick={() => setPopup(true)}
       >
-        Add new trainer
+        Add New Trainer
       </button>
 
       <Popup trigger={popup} setTrigger={setPopup} title="Add new trainer">

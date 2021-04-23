@@ -11,8 +11,6 @@ export const getAll = () => async (dispatch) => {
   try {
     const res = await axios.get(`${api}`);
 
-    console.log(res);
-
     await dispatch({
       type: GET_TRAINER,
       payload: res.data.trainer,
@@ -20,7 +18,10 @@ export const getAll = () => async (dispatch) => {
 
     await dispatch({
       type: GET_POKEMON,
-      payload: res.data.pokemon,
+      payload: {
+        arranged: { ...res.data.arrangedPokemon },
+        remaining: [...res.data.remainingPokemon],
+      },
     });
   } catch (err) {
     console.log(err);

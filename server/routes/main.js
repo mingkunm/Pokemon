@@ -31,16 +31,18 @@ router.get("/", (req, res) => {
 
         connection.release();
 
-        // const { traienr = main, pokemon = pokemonArrange } = manageGetData(
+        // const { traienr = main, pokemon = arrangedPokemon } = manageGetData(
         //   pokemons,
         //   trainers
         // );
 
-        const { main, pokemonArrange } = manageGetData(pokemons, trainers);
+        const { main, arrangedPokemon, remainingPokemon } = manageGetData(
+          pokemons,
+          trainers
+        );
         const trainer = main;
-        const pokemon = pokemonArrange;
 
-        res.json({ trainer, pokemon });
+        res.json({ trainer, arrangedPokemon, remainingPokemon });
       });
     });
   });
@@ -50,7 +52,7 @@ const manageGetData = (_pokemon, _trainer) => {
   const pokemon = {};
   const pokemonMap = {};
   const main = {};
-  const pokemonArrange = {};
+  const arrangedPokemon = {};
 
   _pokemon.forEach((item) => {
     const { ID, Name, Move, Type } = item;
@@ -75,12 +77,18 @@ const manageGetData = (_pokemon, _trainer) => {
       trainer.Pokemon_owned.split(",").forEach((id) => {
         main[trainerName].pokemon.push(pokemon[id]);
 
-        pokemonArrange[pokemonMap[id]] = trainerName;
+        arrangedPokemon[pokemonMap[id]] = trainerName;
+        delete pokemon[id];
       });
     }
   });
 
-  return { main, pokemonArrange };
+  const remainingPokemon = [];
+  Object.keys(pokemon).forEach((key) => {
+    remainingPokemon.push(pokemon[key]);
+  });
+
+  return { main, arrangedPokemon, remainingPokemon };
 };
 
 module.exports = router;

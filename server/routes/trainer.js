@@ -69,4 +69,77 @@ router.delete("/:name", (req, res) => {
   }
 });
 
+// @post      Post /api/trainer/addPokemon
+// @desc      Add a pokemon to trainer
+// @access    Public
+router.post("/addPokemon", (req, res) => {
+  const { trainer, pokemonId } = req.body;
+
+  try {
+    pool.getConnection(async (err, connection) => {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
+
+      connection.query(`SELECT * from Trainers`, (err, trainers) => {
+        if (err) {
+          console.log(err);
+          return res.send(err);
+        }
+
+        // Check if pokomon has been assigned
+        for (const t of trainers) {
+          if (t.Pokemon_owned.length > 0) {
+            const ids = t.Pokemon_owned.split(",");
+            for (const id of ids) {
+              if (parseInt(id) === parseInt(pokemonId)) {
+                connection.release();
+
+                return res.json({ Refresh: true });
+              }
+            }
+          }
+        }
+
+        // Add new pokemon to traienr
+        let newOwned;
+        for (const t of trainers) {
+          if (t.Name === trainer) {
+            newOwned = t.Pokemon_owned + `,${pokemonId}`;
+            break;
+          }
+        }
+        connection.query(
+          `UPDATE Trainers SET Pokemon_owned = '${newOwned}' WHERE Trainers.Name = '${trainer}'`,
+          (err) => {
+            if (err) {
+              console.log(err);
+              return res.send(err);
+            }
+          }
+        );
+
+        // Return assigned pokemon
+        connection.query(
+          `SELECT * FROM Pokemon WHERE ID = ${pokemonId}`,
+          (err, assignedPokemon) => {
+            connection.release();
+
+            if (err) {
+              console.log(err);
+              return res.send(err);
+            }
+
+            return res.json({ assignedPokemon });
+          }
+        );
+      });
+    });
+  } catch (err) {
+    console.log(err);
+    return res.send(err);
+  }
+});
+
 module.exports = router;
