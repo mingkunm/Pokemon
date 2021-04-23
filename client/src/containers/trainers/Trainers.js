@@ -8,9 +8,25 @@ import { addNewTrainer } from "../../actions/trainer";
 
 function Trainers({ addNewTrainer }) {
   const trainer = useSelector((state) => state.trainer);
+  console.log(trainer);
 
   const [popup, setPopup] = useState(false);
   const [newTrainerName, setNewTrainerName] = useState("");
+  const [newTrainerNameCheck, setNewTrainerNameCheck] = useState(false);
+
+  const handleAddNewTrainer = () => {
+    for (const [key] of Object.entries(trainer)) {
+      if (key.toLowerCase() === newTrainerName.toLowerCase()) {
+        setNewTrainerNameCheck(true);
+        return;
+      }
+    }
+
+    if (!newTrainerNameCheck) {
+      addNewTrainer(newTrainerName);
+      setPopup(false);
+    }
+  };
 
   return (
     <div className="trainers">
@@ -32,15 +48,24 @@ function Trainers({ addNewTrainer }) {
         <input
           type="text"
           placeholder="Trainer name"
-          onChange={(e) => setNewTrainerName(e.target.value)}
+          onChange={(e) => {
+            setNewTrainerNameCheck(false);
+            setNewTrainerName(e.target.value);
+          }}
         />
+        {newTrainerNameCheck ? (
+          <span style={{ color: "red" }}>Trainer exists!</span>
+        ) : (
+          ""
+        )}
+
         <button
           className="btn-confirm"
           style={{
             width: "100%",
             marginTop: "30px",
           }}
-          onClick={() => addNewTrainer(newTrainerName)}
+          onClick={() => handleAddNewTrainer()}
         >
           Confirm
         </button>

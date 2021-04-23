@@ -13,7 +13,7 @@
   border-bottom: 1px solid lightgray;
 }
 
-.trainer:last-child {
+.trainer:nth-last-child(-n + 2) {
   border-bottom: none;
 }
 

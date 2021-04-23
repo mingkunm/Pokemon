@@ -71,11 +71,13 @@ const manageGetData = (_pokemon, _trainer) => {
     main[trainerName].name = trainerName;
     main[trainerName].pokemon = [];
 
-    trainer.Pokemon_owned.split(",").forEach((id) => {
-      main[trainerName].pokemon.push(pokemon[id]);
+    if (trainer.Pokemon_owned.length > 0) {
+      trainer.Pokemon_owned.split(",").forEach((id) => {
+        main[trainerName].pokemon.push(pokemon[id]);
 
-      pokemonArrange[pokemonMap[id]] = trainerName;
-    });
+        pokemonArrange[pokemonMap[id]] = trainerName;
+      });
+    }
   });
 
   return { main, pokemonArrange };

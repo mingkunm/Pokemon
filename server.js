@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const main = require("./server/routes/main");
+const trainer = require("./server/routes/trainer");
 // const pokemon = require("./server/routes/pokemon");
 
 // Body Parser Middleware
@@ -19,6 +20,7 @@ app.get("/test", (req, res) => {
   res.send("this is test!");
 });
 app.use("/api/", main);
+app.use("/api/trainer/", trainer);
 // app.use("/api/pokemon", pokemon);
 
 const PORT = process.env.PORT || 5000;

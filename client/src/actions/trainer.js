@@ -15,16 +15,14 @@ export const addNewTrainer = (name) => async (dispatch) => {
   };
   const body = JSON.stringify({ name });
 
-  console.log(name);
+  try {
+    const res = await axios.post(`${api}trainer/new`, body, config);
 
-  // try {
-  //   const res = await axios.post(`${api}post`, body, config);
-  //   const payload = res.data;
-  //   dispatch({
-  //     type: POST,
-  //     payload,
-  //   });
-  // } catch (err) {
-  //   console.log(err);
-  // }
+    await dispatch({
+      type: ADD_TRAINER,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
