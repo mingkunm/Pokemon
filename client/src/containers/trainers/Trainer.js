@@ -40,8 +40,7 @@ function Trainer({ name, pokemons, deleteTrainer, addPokemonToTrainer }) {
       >
         <h4>{name}</h4>
         <button
-          style={{ backgroundColor: "green" }}
-          className="btn-trainer"
+          className="btn-trainer btn-confirm"
           onClick={() => {
             setAddPokemonSelect(null);
             setAddPokemonPopup(true);
@@ -50,8 +49,7 @@ function Trainer({ name, pokemons, deleteTrainer, addPokemonToTrainer }) {
           Add Pokemon
         </button>
         <button
-          style={{ backgroundColor: "red" }}
-          className="btn-trainer"
+          className="btn-trainer btn-cancel"
           onClick={() => handleDeleteTrainer()}
         >
           Delete Trainer

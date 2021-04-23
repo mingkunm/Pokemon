@@ -1,6 +1,11 @@
 import React from "react";
+import { connect, useSelector } from "react-redux";
 
-function Pokemon({ pokemon }) {
+import { releasePokemonFromTrainer } from "../../actions/trainer";
+
+function Pokemon({ pokemon, releasePokemonFromTrainer }) {
+  const arrangedPokemon = useSelector((state) => state.pokemon).arranged;
+
   const { name, type, move } = pokemon;
 
   return (
@@ -13,6 +18,18 @@ function Pokemon({ pokemon }) {
           alt={`${name} img`}
           className="avatar"
         />
+        <button
+          className="btn-cancel"
+          style={{
+            padding: "5px",
+            marginTop: "5px",
+          }}
+          onClick={() =>
+            releasePokemonFromTrainer(arrangedPokemon[name], pokemon)
+          }
+        >
+          Release
+        </button>
       </div>
       <div>
         <h5>Name: {name}</h5>
@@ -23,4 +40,4 @@ function Pokemon({ pokemon }) {
   );
 }
 
-export default Pokemon;
+export default connect(null, { releasePokemonFromTrainer })(Pokemon);

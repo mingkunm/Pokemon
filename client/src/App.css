@@ -34,6 +34,8 @@
 
 .avatar-container {
   margin-right: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .avatar {
@@ -86,6 +88,10 @@
 /* Button */
 .btn-confirm {
   background: green;
+}
+
+.btn-cancel {
+  background: red;
 }
 
 .btn-trainer {

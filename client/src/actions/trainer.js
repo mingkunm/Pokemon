@@ -4,8 +4,10 @@ import {
   DELETE_TRAINER,
   GET_POKEMON,
   GET_TRAINER,
-  UPDATE_TRAINER,
+  ADD_POKEMON_TO_TRAINER,
   ASSIGN_POKEMON,
+  REMOVE_POKEMON_FROM_TRAINER,
+  RELEASE_POKEMON,
 } from "./types";
 
 let api = "/api/";
@@ -81,13 +83,42 @@ export const addPokemonToTrainer = (trainer, pokemonId) => async (dispatch) => {
       });
 
       await dispatch({
-        type: UPDATE_TRAINER,
+        type: ADD_POKEMON_TO_TRAINER,
         payload: { name: trainer, assignedPokemon },
       });
 
       await dispatch({
         type: ASSIGN_POKEMON,
         payload: { trainer, pokemon: assignedPokemon.name },
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const releasePokemonFromTrainer = (trainer, pokemon) => async (
+  dispatch
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ trainer, pokemonId: pokemon.id });
+
+  try {
+    const res = await axios.post(`${api}trainer/releasePokemon`, body, config);
+
+    if (res.status === 200) {
+      await dispatch({
+        type: REMOVE_POKEMON_FROM_TRAINER,
+        payload: { trainer, pokemonId: pokemon.id },
+      });
+
+      await dispatch({
+        type: RELEASE_POKEMON,
+        payload: pokemon,
       });
     }
   } catch (err) {

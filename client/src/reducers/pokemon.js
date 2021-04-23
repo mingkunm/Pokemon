@@ -1,4 +1,4 @@
-import { GET_POKEMON, ASSIGN_POKEMON } from "../actions/types";
+import { GET_POKEMON, ASSIGN_POKEMON, RELEASE_POKEMON } from "../actions/types";
 
 const INITIAL_STATE = {
   arranged: null,
@@ -25,6 +25,12 @@ export default function trainer(state = INITIAL_STATE, action) {
           ...state.arranged,
           [payload.pokemon]: payload.trainer,
         },
+      };
+    case RELEASE_POKEMON:
+      delete state.arranged[payload.name];
+      return {
+        ...state,
+        remaining: [...state.remaining, payload],
       };
     default:
       return state;

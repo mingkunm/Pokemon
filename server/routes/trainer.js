@@ -142,4 +142,53 @@ router.post("/addPokemon", (req, res) => {
   }
 });
 
+// @post      Post /api/trainer/releasePokemon
+// @desc      Release a pokemon from a trainer
+// @access    Public
+router.post("/releasePokemon", (req, res) => {
+  const { trainer, pokemonId } = req.body;
+
+  try {
+    pool.getConnection(async (err, connection) => {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      }
+
+      connection.query(
+        `SELECT Pokemon_owned from Trainers WHERE Name = '${trainer}'`,
+        (err, _oldOwned) => {
+          if (err) {
+            console.log(err);
+            return res.send(err);
+          }
+
+          const oldOwned = _oldOwned[0].Pokemon_owned;
+          const newOwned = oldOwned
+            .split(",")
+            .filter((id) => parseInt(id) !== parseInt(pokemonId))
+            .join(",");
+
+          connection.query(
+            `UPDATE Trainers SET Pokemon_owned = '${newOwned}' WHERE Trainers.Name = '${trainer}'`,
+            (err) => {
+              if (err) {
+                console.log(err);
+                return res.send(err);
+              }
+
+              connection.release();
+
+              return res.status(200).send("Successfully released!");
+            }
+          );
+        }
+      );
+    });
+  } catch (err) {
+    console.log(err);
+    return res.send(err);
+  }
+});
+
 module.exports = router;
