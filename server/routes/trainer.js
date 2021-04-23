@@ -35,4 +35,38 @@ router.post("/new", (req, res) => {
   }
 });
 
+// @delete    Delete /api/trainer/
+// @desc      Delete a traienr
+// @access    Public
+router.delete("/:name", (req, res) => {
+  const { name } = req.params;
+
+  try {
+    pool.getConnection(async (err, connection) => {
+      if (err) {
+        res.send(err);
+        console.log(err);
+      }
+
+      connection.query(
+        `DELETE FROM Trainers WHERE Name = ?`,
+        name,
+        (err, rows) => {
+          if (err) {
+            console.log(err);
+            return res.send(err);
+          }
+
+          connection.release();
+
+          res.json({ name });
+        }
+      );
+    });
+  } catch (err) {
+    console.log(err);
+    return res.send(err);
+  }
+});
+
 module.exports = router;

@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 
 import Trainer from "./Trainer";
 import Popup from "../../components/Popup";
-import { addNewTrainer } from "../../actions/trainer";
+import { addTrainer } from "../../actions/trainer";
 
-function Trainers({ addNewTrainer }) {
+function Trainers({ addTrainer }) {
   const trainer = useSelector((state) => state.trainer);
   console.log(trainer);
 
@@ -23,7 +23,7 @@ function Trainers({ addNewTrainer }) {
     }
 
     if (!newTrainerNameCheck) {
-      addNewTrainer(newTrainerName);
+      addTrainer(newTrainerName);
       setPopup(false);
     }
   };
@@ -53,10 +53,8 @@ function Trainers({ addNewTrainer }) {
             setNewTrainerName(e.target.value);
           }}
         />
-        {newTrainerNameCheck ? (
+        {newTrainerNameCheck && (
           <span style={{ color: "red" }}>Trainer exists!</span>
-        ) : (
-          ""
         )}
 
         <button
@@ -74,4 +72,4 @@ function Trainers({ addNewTrainer }) {
   );
 }
 
-export default connect(null, { addNewTrainer })(Trainers);
+export default connect(null, { addTrainer })(Trainers);

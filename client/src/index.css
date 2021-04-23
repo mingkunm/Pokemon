@@ -18,6 +18,8 @@ button {
   border: none;
   outline: none;
   transition: 0.2s ease;
+  text-align: center;
+  color: white;
 }
 
 button:hover {

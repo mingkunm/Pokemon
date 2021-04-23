@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_TRAINER } from "./types";
+import { ADD_TRAINER, DELETE_TRAINER } from "./types";
 
 let api = "/api/";
 
@@ -7,7 +7,7 @@ if (window.location.hostname.indexOf("localhost") >= 0) {
   api = "http://localhost:5000/api/";
 }
 
-export const addNewTrainer = (name) => async (dispatch) => {
+export const addTrainer = (name) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -21,6 +21,19 @@ export const addNewTrainer = (name) => async (dispatch) => {
     await dispatch({
       type: ADD_TRAINER,
       payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteTrainer = (name) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`${api}trainer/${name}`);
+
+    await dispatch({
+      type: DELETE_TRAINER,
+      payload: res.data.name,
     });
   } catch (err) {
     console.log(err);
